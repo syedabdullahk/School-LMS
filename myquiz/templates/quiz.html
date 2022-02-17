@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	<title>Quiz Application</title>
+	<script src = "{% static 'js/quiz.js' %}"></script>
+</head>
+<body>
+	<div id = "container">
+		<header>
+			<a href="/" class = "button">Go Back</a>
+			<h1>Objective test Question</h1>
+		</header>
+
+		<section>
+			<div id = "results"></div>
+			<form name = "quizForm" method="POST" >
+				{% csrf_token %}
+			{% for q in questions %}
+				<h3> {{ q.id }}.  {{ q.question }}</h3>
+				<input type = "radio" name = "{{ q.id }}" value = "{{ q.option1 }}" id = "q1a">   a. {{ q.option1 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "{{ q.option2 }}" id = "q1b">   b. {{ q.option2 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "{{ q.option3 }}" id = "q1c">   c. {{ q.option3 }}<br><br>
+				<input type = "radio" name = "{{ q.id }}" value = "{{ q.option4 }}" id = "q1d">   d. {{ q.option4 }}<br><br>
+
+
+			{% endfor %}
+
+				<br><br>
+				<input type = "submit" value = "Submit Answer">
+			</form>
+			<br><br>
+		<a href="{% url  'quiz:answers' %}" >RESET</a>
+		</section>
+		<footer>
+			<p>Copyright &copy;2017, Allright Reserverd</p>
+		</footer>
+	</div>
+
+</body>
+</html>

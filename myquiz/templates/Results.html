@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row row-cols-3">
+      {% for q in quizzes %}
+    <div class="col"><h1> <a href="{% url  'quiz:quiz-result' q.Quiz_ID  %}" >{{q.Quiz_name}}</a></h1>
+    </div>
+      {% endfor %}
+
+
+{% endblock %}
+  </div>
+</div>
+
+

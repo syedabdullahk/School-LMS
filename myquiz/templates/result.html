@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	<title>Quiz Application</title>
+	<script src = "{% static 'js/quiz.js' %}"></script>
+</head>
+<body>
+	<div id = "container">
+		<header>
+			<a href="/" class = "button">Go Back</a>
+			<h1>Objective test Question</h1>
+		</header>
+
+		<section>
+			<div id = "results"></div>
+
+				{% csrf_token %}
+			<h3> {{message}}</h3>
+			{% for i in results %}
+
+
+            <h3> You got   {{ i.Marks }} Marks in {{ i.Quiz_ID }}</h3>
+
+
+
+			{% endfor %}
+
+
+			<br><br>
+
+		</section>
+		<footer>
+			<p>Copyright &copy;2017, Allright Reserverd</p>
+		</footer>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	<title>Result</title>
+	<script src = "{% static 'js/quiz.js' %}"></script>
+</head>
+<body>
+	<div id = "container">
+		<header>
+			<a href="/" class = "button">Go Back</a>
+			<h1>Objective test Question</h1>
+		</header>
+
+		<section>
+			<div id = "results"></div>
+			<form name = "quizForm" method="POST" >
+				{% csrf_token %}
+			{% for a in answers %}
+				<h3> Your answer: {{a.Answer}}</h3>
+
+
+
+			{% endfor %}
+
+				<br><br>
+				<input type = "submit" value = "Submit Answer">
+			</form>
+			<br><br>
+
+		</section>
+		<footer>
+			<p>Copyright &copy;2017, Allright Reserverd</p>
+		</footer>
+	</div>
+
+</body>
+</html>
