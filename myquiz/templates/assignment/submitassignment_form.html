@@ -1,0 +1,33 @@
+
+
+{% block title_name %}
+{% endblock title_name %}
+
+{% block content %}
+
+    {% if user.user_type == 2 %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Only students are allowed to submit assignments</h2>
+            </div>
+        </div>
+    {% else %}
+
+
+        <div >
+            <h4>Submit Assignment</h4>
+            <form action="{% url 'assignment:submit' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{  form }}
+                {{ form.name.errors }}
+
+                {% if duedate >= time %}
+                    <input type="submit" value="Submit" class="btn btn-warning btn-lg">
+                {% endif %}
+            </form>
+            <ul>
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock content %}

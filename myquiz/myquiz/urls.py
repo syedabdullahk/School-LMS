@@ -6,7 +6,10 @@ from django.urls import path, include
 
 urlpatterns = [
 
+    path('', include('users.urls')),
 	path('', include('quiz.urls')),
+    path('', include('assignment.urls')),
+    path('', include('announcements.urls')),
 
     url(r'^admin/', admin.site.urls),
 ]

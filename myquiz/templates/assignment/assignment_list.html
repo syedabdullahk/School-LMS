@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Assignments</title>
+{% endblock  %}
+{% block content %}
+    <h2>Assignments</h2>
+
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Assignment Title</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for assignment in object_list %}
+    <tr>
+      <th scope="row">{{assignment.id}}</th>
+      <td><a href="detail/{{assignment.id}}"> {{assignment.assignment_name}}</a></td>
+      <td>{{assignment.start_date}}</td>
+      <td>{{assignment.due_date}}</td>
+    </tr>
+  {% endfor%}
+
+  </tbody>
+</table>
+
+{% endblock %}

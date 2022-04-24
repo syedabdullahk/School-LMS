@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Assignments</title>
+{% endblock  %}
+
+
+
+{% block content %}
+<style>
+    .main {
+        margin-inline: 20px;
+    }
+
+    .add-button {
+        text-align: end;
+    }
+</style>
+
+<body>
+<a href="/" class = "button">Go Back</a>
+<div class="main">
+    <h2>Assignments</h2>
+
+    {%if object_list%}
+    <div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for announcement in object_list %}
+            <tr>
+                <th scope="row">{{announcement.id}}</th>
+                <td><a href="detail/{{announcement.id}}"> {{announcement.subject}}</a></td>
+                <td>{{announcement.author.username}}</td>
+                <td>{{announcement.start_date}}</td>
+                <td><button><a href="delete/{{announcement.id}}">Delete</a></button></td>
+            </tr>
+            {% endfor%}
+
+
+            </tbody>
+        </table>
+    </div>
+    {%if user.user_type == 2 %}
+    <div class="add-button">
+        <button><a href="{% url 'announcements:create'%}">Create Announcement</a></button>
+    </div>
+    {% endif%}
+    {%else%}
+    <div class="add-button">
+        <button><a href="{% url 'announcements:create'%}">Create Announcement</a></button>
+    </div>
+
+
+    {%endif%}
+</div>
+</body>
+{% endblock %}

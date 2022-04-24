@@ -31,15 +31,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+   'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-
+    #Third Party Apps
+    'crispy_forms',
+    #MY APPS
+    
+    'courses',
+    'users',
     'quiz',
+    'assignment',
+    'announcements',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +85,7 @@ WSGI_APPLICATION = 'myquiz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-	'NAME': 'db2',
+	'NAME': 'new_db',
 	'HOST':'localhost',
         'PORT': '5432',
     }
@@ -126,3 +132,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR +  "/static/",
 ]
+
+AUTH_USER_MODEL = "users.User"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
