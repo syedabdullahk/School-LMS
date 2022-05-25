@@ -57,7 +57,8 @@
 
 
        {%else%}
-                 <a class="navbar-brand" aria-current="page" href="/accounts/logout">LOGOUT</a>
+                <p class = "navbar-brand">{{user.username}}</p>
+                 <button class="btn"><a class="navbar-brand" aria-current="page" href="/accounts/logout/">Logout</a></button>
 
          {%endif%}
       </span>

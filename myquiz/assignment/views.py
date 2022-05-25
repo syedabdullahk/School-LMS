@@ -72,7 +72,7 @@ class SubmitAssignmentView(LoginRequiredMixin, generic.CreateView):
 
 class SubmitAssignmentDetail(LoginRequiredMixin, generic.DetailView):
     model = SubmitAssignment
-    template_name = 'assignment/submitassignment_detail.html'
+    template_name = 'assignment/assignment_submissions.html'
 
     def get_context_data(self, **kwargs):
         submissions = SubmitAssignment.objects.filter(pk=self.kwargs['pk'])
@@ -113,3 +113,7 @@ class AssignmentListView(generic.ListView):
     model = Assignment
 
     # the default template is (lowercase)<modelname>_list
+class AssignmentSubmitDetail(LoginRequiredMixin, generic.DetailView,generic.FormView):
+
+    model = SubmitAssignment
+
