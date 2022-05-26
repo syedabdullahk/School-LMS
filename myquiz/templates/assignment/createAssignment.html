@@ -163,6 +163,13 @@ html, body {
                     <form action="{% url 'assignment:create' %}" method="POST" class="requires-validation" novalidate>
                         {% csrf_token %}
                         {{ form.non_field_errors }}
+
+                        <div class="col-md-12">
+                            {{ form.course.errors }}
+                            <label for="{{form.course }}">Course</label>
+                            {{ form.course}}
+                        </div>
+
                         <div class="col-md-12">
                             {{ form.assignment_name.errors }}
                             <label for="{{ form.assignment_name.id_for_label }}">Assignment Title</label>

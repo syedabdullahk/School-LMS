@@ -7,7 +7,7 @@ from .models import *
 class addQuizform(ModelForm):
     class Meta:
         model = QuizModel
-        fields = "__all__"
+        fields = ('Quiz_name',)
 
 
 

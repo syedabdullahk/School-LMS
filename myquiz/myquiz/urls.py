@@ -13,6 +13,6 @@ urlpatterns = [
     path('', include('announcements.urls')),
     path('', include('courses.urls')),
 
-    url(r'^admin/', admin.site.urls),
+    path('admin', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

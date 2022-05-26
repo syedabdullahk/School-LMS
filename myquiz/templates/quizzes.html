@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="row row-cols-3">
-      {% for q in quizzes %}
+      {% for q in object_list %}
     <div class="col"><h1> <a href="{% url  'quiz:attempt-quiz' q.Quiz_ID  %}" >{{q.Quiz_name}}</a></h1>
     </div>
       {% endfor %}
@@ -14,6 +14,10 @@
 
 
   </div>
+</div>
+
+<div>
+  <button><a href="/add-quiz">Create Quiz</a></button>
 </div>
 
 

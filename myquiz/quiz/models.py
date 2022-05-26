@@ -1,14 +1,18 @@
 from django.db import models
+from courses.models import Course
+from django.urls import reverse
 
 
 class QuizModel(models.Model):
     Quiz_ID = models.AutoField(primary_key=True)
-    Course_ID = models.CharField(max_length=200, null=True)
+    course = models.ForeignKey(Course, related_name='quizzes', on_delete=models.CASCADE)
     Quiz_name = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.Quiz_name
 
+    def get_absolute_url(self):
+        return reverse('quiz:create-question')
 
 
 class QuesModel(models.Model):

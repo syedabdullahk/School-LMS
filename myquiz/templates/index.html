@@ -28,11 +28,9 @@
         <h1><a href="#" class="logo">Project Name</a></h1>
         <ul class="list-unstyled components mb-5">
             <li class="active">
-                <a href="#"><span class="fa fa-home mr-3"></span> Homepage</a>
+                <a href="{% url  'courses:course-list' %}"><span class="fa fa-sticky-note mr-3"></span> Courses</a>
             </li>
-            <li>
-                <a href="{% url  'assignment:assgn-list' %}"><span class="fa fa-user mr-3"></span> Assignments</a>
-            </li>
+
 
             <li>
                 <a href="{% url  'announcements:announcement-list' %}"><span class="fa fa-user mr-3"></span> Announcements</a>

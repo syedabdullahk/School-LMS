@@ -16,17 +16,39 @@
   <div>
     <h1>All Courses</h1>
 
-    {% if user.user_type == 2 %}
-    <a
-      href="#"
-      class="btn btn-lg btn-fill btn-success button-stretch"
-    >
-      <i class="fa fa-plus-circle" aria-hidden="true"> Create New Course</i>
-    </a>
-    {% endif %}
+
   </div>
     <div class="card-deck">
       {% for course_item in object_list %}
+
+      {% if user.user_type == 2%}
+
+      {% if user == course_item.teacher %}
+
+      <div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{course_item.course_name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{course_item.teacher}}</h6>
+          <p class="card-text">
+            {{course_item.course_description}}
+          </p>
+          <p><a href="quizzes/{{course_item.id}}" class="btn btn-primary card-link">Quizzes  (Experimental)</a></p>
+          <p><a href="assignment-list/{{course_item.id}}" class="btn btn-primary card-link">Assignment  (Experimental)</a></p>
+
+
+          <p>{{course_item.students.count}}
+                member{{course_item.students.count|pluralize}}</p>
+
+
+        </div>
+      </div>
+      </div>
+
+      {% endif%}
+
+      {% endif %}
+
       {%  if user in course_item.students.all%}
 
       <div>
@@ -37,7 +59,8 @@
           <p class="card-text">
             {{course_item.course_description}}
           </p>
-          <a href="#" class="btn btn-primary card-link">More Info</a>
+          <p><a href="quizzes/{{course_item.id}}" class="btn btn-primary card-link">Quizzes  (Experimental)</a></p>
+          <p><a href="assignment-list/{{course_item.id}}" class="btn btn-primary card-link">Assignment  (Experimental)</a></p>
 
 
           <p>{{course_item.students.count}}

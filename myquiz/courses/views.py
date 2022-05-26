@@ -16,4 +16,4 @@ class CourseDetail(generic.DetailView):
 
 class CourseListView(generic.ListView):
     model = Course
-    courses = Course.objects.filter()
+   # courses = Course.objects.filter()

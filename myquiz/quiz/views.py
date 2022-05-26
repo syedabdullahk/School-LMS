@@ -1,6 +1,9 @@
 from django.shortcuts import redirect, render
-from .models import *
 from .forms import *
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.views import generic
 
 
 # Create your views here.
@@ -8,18 +11,47 @@ def home(request):
 
     return render(request, 'index.html')
 
-
+@user_passes_test(lambda user: user.user_type == 2)
 def createQuiz(request):
     form = addQuizform()
+    obj = form.save(commit=False)
+    obj.course = Course.objects.get(pk=request.session.get('course'))
     if request.method == 'POST':
         form = addQuizform(request.POST)
         if form.is_valid():
+
             form.save()
             return redirect('/create-question')
     context = {'form': form}
     return render(request, 'addquiz.html', context)
 
+class CreateQuizView(LoginRequiredMixin, generic.CreateView):
 
+    model  = QuizModel
+    form_class = addQuizform
+    template_name = 'addquiz.html'
+    select_related = ('course')
+
+    # success_url = reverse('assignments:submit_detail')
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        course = Course.objects.get(pk=self.request.session.get('course'))
+        obj.course= course
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+
+        context = super(CreateQuizView, self).get_context_data(**kwargs)
+        return context
+
+
+
+
+
+
+
+
+@user_passes_test(lambda user: user.user_type == 2)
 def createQuestions(request):
     form = addQuestionform()
     if request.method == 'POST':
@@ -31,19 +63,28 @@ def createQuestions(request):
     return render(request, 'addquestion.html', context)
 
 
-'''
-def qpage(request):
-    questions = QuesModel.objects.all()
-    dict: questions
-    if (request.method == 'POST'):
-        print(request.POST.dict())
-    return render(request, 'quiz.html', {'questions': questions})'''
 
 
-def quizzes(request):
-    quizzes = QuizModel.objects.all()
+
+def quizzes(request,id):
+    request.session['course'] = id
+    quizzes = QuizModel.objects.filter(course = id)
 
     return render(request, 'quizzes.html', {'quizzes': quizzes})
+
+class QuizListView(generic.ListView):
+    model = QuizModel
+    template_name = 'quizzes.html'
+
+    def get_context_data(self, **kwargs):
+
+
+        context = super(QuizListView, self).get_context_data(**kwargs)
+
+        quizzes = QuizModel.objects.filter(course=self.kwargs['pk'])
+        context['object_list'] = quizzes
+        self.request.session['course'] = self.kwargs['pk']
+        return context
 
 
 def results(request):

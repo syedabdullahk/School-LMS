@@ -23,7 +23,7 @@
     <tr>
       <th scope="row">{{assignment.id}}</th>
       {% if user.user_type == 1%}
-      <td><a href="detail/{{assignment.id}}"> {{assignment.assignment_name}}</a></td>
+      <td><a href="/detail/{{assignment.id}}"> {{assignment.assignment_name}}</a></td>
       {% else %}
       <td><a href="submission-detail/{{assignment.id}}"> {{assignment.assignment_name}}</a></td>
       {% endif %}

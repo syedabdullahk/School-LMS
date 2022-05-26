@@ -20,15 +20,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
 
 
 # Create your views here.
-def createAssignment(request):
-    form = CreateAssignmentForm()
-    if request.method == 'POST':
-        form = CreateAssignmentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context = {'form': form}
-    return render(request, 'createAssignment.html', context)
+
 
 
 class CreateAssignment2(LoginRequiredMixin, generic.CreateView):
@@ -62,13 +54,7 @@ class SubmitAssignmentView(LoginRequiredMixin, generic.CreateView):
         context['time'] = timezone.now()
         return context
 
-    '''''''''
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['assignment_id'] = self.request.session.get('assignment')
-        kwargs['user'] = self.request.user
-        return kwargs
-'''''''''
+
 
 class SubmitAssignmentDetail(LoginRequiredMixin, generic.DetailView):
     model = SubmitAssignment
@@ -111,6 +97,13 @@ class AssignmentDetail(LoginRequiredMixin, generic.DetailView,generic.FormView):
 
 class AssignmentListView(generic.ListView):
     model = Assignment
+
+    def get_context_data(self, **kwargs):
+
+        context = super(AssignmentListView, self).get_context_data(**kwargs)
+        filtered_assignments = Assignment.objects.filter(course=self.kwargs['pk'])
+        context['object_list'] = filtered_assignments
+        return context
 
     # the default template is (lowercase)<modelname>_list
 class AssignmentSubmitDetail(LoginRequiredMixin, generic.DetailView,generic.FormView):
