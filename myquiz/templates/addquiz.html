@@ -158,7 +158,7 @@ html, body {
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h3>Quiz Creation </h3>
+                    <h3>Quiz Creation + {{request.session.course}}</h3>
                     <p>Enter Questions in the next step</p>
                     <form action="" method="POST" class="requires-validation" novalidate>
                         {% csrf_token %}

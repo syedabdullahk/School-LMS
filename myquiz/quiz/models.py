@@ -12,7 +12,7 @@ class QuizModel(models.Model):
         return self.Quiz_name
 
     def get_absolute_url(self):
-        return reverse('quiz:create-question')
+        return reverse('quiz:create-question',kwargs={'pk':self.pk})
 
 
 class QuesModel(models.Model):

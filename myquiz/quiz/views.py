@@ -12,19 +12,6 @@ def home(request):
     return render(request, 'index.html')
 
 @user_passes_test(lambda user: user.user_type == 2)
-def createQuiz(request):
-    form = addQuizform()
-    obj = form.save(commit=False)
-    obj.course = Course.objects.get(pk=request.session.get('course'))
-    if request.method == 'POST':
-        form = addQuizform(request.POST)
-        if form.is_valid():
-
-            form.save()
-            return redirect('/create-question')
-    context = {'form': form}
-    return render(request, 'addquiz.html', context)
-
 class CreateQuizView(LoginRequiredMixin, generic.CreateView):
 
     model  = QuizModel
@@ -32,11 +19,13 @@ class CreateQuizView(LoginRequiredMixin, generic.CreateView):
     template_name = 'addquiz.html'
     select_related = ('course')
 
+
     # success_url = reverse('assignments:submit_detail')
     def form_valid(self, form):
         obj = form.save(commit=False)
         course = Course.objects.get(pk=self.request.session.get('course'))
         obj.course= course
+        self.request.session['quiz'] = obj.Quiz_ID
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -51,12 +40,20 @@ class CreateQuizView(LoginRequiredMixin, generic.CreateView):
 
 
 
+
 @user_passes_test(lambda user: user.user_type == 2)
-def createQuestions(request):
+def createQuestions(request,pk):
+
+    quiz = QuizModel.objects.get(Quiz_ID=pk)
+
     form = addQuestionform()
+
+
     if request.method == 'POST':
         form = addQuestionform(request.POST)
         if form.is_valid():
+            form = form.save(commit=False)
+            form.Quiz_ID_id =pk
             form.save()
             return redirect('/')
     context = {'form': form}

@@ -165,16 +165,17 @@ html, body {
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h3>Quiz Creation</h3>
+                    <h3>Quiz Creation + ID: {{request.session.quiz}}</h3>
 
                     <form action="" method="POST" class="requires-validation" novalidate>
                         {% csrf_token %}
                         {{ form.non_field_errors }}
+                        <!--
                            <div class="col-md-10">
                             {{ form.Quiz_ID.errors }}
                             <label for="{{ form.Quiz_ID.id_for_label }}">Quiz Name</label>
                             {{ form.Quiz_ID }}
-                        </div>
+                        </div>  !-->
                         <div class="col-md-10">
 
                             {{ form.question.errors }}

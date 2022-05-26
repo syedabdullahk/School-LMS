@@ -11,7 +11,9 @@ urlpatterns = [
 	#path("questions/", views.qpage, name="questions"),
 	path("create-quiz", views.createQuiz, name="create-quiz"),
 	path("add-quiz", views.CreateQuizView.as_view(), name="create-quiz"),
-	path("create-question", views.createQuestions, name="create-question"),
+	path("question/<int:pk>", views.createQuestions, name="crea"),
+
+	path("create-question/<int:pk>", views.createQuestions, name="create-question"),
 	#path("quizzes", views.quizzes, name="quizzes"),
 	#temporary
 	path("quizzes/<int:pk>", views.QuizListView.as_view(), name="quizzes"),
