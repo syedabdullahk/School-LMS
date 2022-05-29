@@ -28,7 +28,7 @@
       <div>
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">{{course_item.course_name}}</h5>
+          <h5 class="card-title"><a href="{% url 'courses:course-detail' course_item.id %}" >{{course_item.course_name}}</a></h5>
           <h6 class="card-subtitle mb-2 text-muted">{{course_item.teacher}}</h6>
           <p class="card-text">
             {{course_item.course_description}}
@@ -54,13 +54,12 @@
       <div>
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">{{course_item.course_name}}</h5>
+          <h4 class="card-title"><a href="{% url 'courses:course-detail' course_item.id %}" >{{course_item.course_name}}</a></h4>
           <h6 class="card-subtitle mb-2 text-muted">{{course_item.teacher}}</h6>
           <p class="card-text">
             {{course_item.course_description}}
           </p>
-          <p><a href="quizzes/{{course_item.id}}" class="btn btn-primary card-link">Quizzes  (Experimental)</a></p>
-          <p><a href="assignment-list/{{course_item.id}}" class="btn btn-primary card-link">Assignment  (Experimental)</a></p>
+
 
 
           <p>{{course_item.students.count}}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    #quizforms{
+        width: 50%;
+    }
+</style>
+<h1>Create books for {{ author.name }}</h1>
+
+
+
+<div  id="quizforms"></div>
+<button type="button" hx-get="{% url 'quiz:create-quiz-form' %}" hx-target="#quizforms" hx-swap="beforeend">
+    Add form
+</button>
+{% endblock %}

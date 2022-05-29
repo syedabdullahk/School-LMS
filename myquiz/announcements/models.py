@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from users.models import User
+from courses.models import Course
 
 from django.urls import reverse
 
@@ -8,9 +9,10 @@ from django.urls import reverse
 class Announcement(models.Model):
     subject = models.CharField(max_length=200, blank=False)
     body = models.TextField(blank=False)
-    start_date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, related_name="announcement", on_delete=models.CASCADE)
-    # add a course id
+    course = models.ForeignKey(Course, related_name="course_announcement", on_delete=models.CASCADE)
+    is_general = models.BooleanField(default = False)
 
     def __str__(self):
         return self.subject

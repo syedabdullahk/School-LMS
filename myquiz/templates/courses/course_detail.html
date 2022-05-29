@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title_name %}
+LMS - {{course.course_name}}
+{% endblock title_name %}
+
+
+{% block content %}
+<div>
+    <p><a href="{% url 'quiz:quizzes' course.id %}" class="btn btn-primary card-link">Quizzes </a></p>
+    <p><a href="{% url 'assignment:assgn-list' course.id %}" class="btn btn-primary card-link">Assignment </a></p>
+    <p><a href="{% url 'announcements:announcement-list' %}" class="btn btn-primary card-link">Announcements </a></p>
+
+</div>
+
+{% endblock content %}
+

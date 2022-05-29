@@ -1,0 +1,9 @@
+
+
+Announcement.objects.filter(course__in = Course.objects.filter(students=8))
+
+
+TO-DO:
+   1. Add courses functionality to Announcements
+        a. add course id to announcements.models
+        b.

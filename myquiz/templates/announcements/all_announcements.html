@@ -37,7 +37,7 @@
 
             {% for announcement in object_list %}
             <tr>
-                <th scope="row">{{announcement.id}}</th>
+                <th scope="row"></th>
                 <td><a href="{% url 'announcements:announcement-detail' announcement.id %}"> {{announcement.subject}}</a></td>
                 <td>{{announcement.author.username}}</td>
                 <td>{{announcement.date}}</td>

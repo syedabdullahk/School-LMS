@@ -6,10 +6,11 @@ from . import views
 app_name = "announcements"
 urlpatterns = [
 
-	path("announcements/create", views.CreateAnnouncementView.as_view(), name="create"),
-	path("announcements/list", views.AnnouncementListView.as_view(), name='announcement-list'),
-	path("announcements/detail/<int:pk>", views.AnnouncementDetail.as_view(), name='detail'),
-	path("announcements/delete/<int:pk>", views.DeleteAnnouncement.as_view(), name='delete'),
+	path("create", views.CreateAnnouncementView.as_view(), name="create"),
+	path("course", views.AnnouncementListView.as_view(), name='announcement-list'),
+	path("", views.AllAnnouncements.as_view(), name='all-announcements'),
+	path("detail/<int:pk>", views.AnnouncementDetail.as_view(), name='announcement-detail'),
+	path("delete/<int:pk>", views.DeleteAnnouncement.as_view(), name='delete'),
 
 
 

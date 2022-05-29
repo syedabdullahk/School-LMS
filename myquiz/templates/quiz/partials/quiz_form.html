@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>asd</title>
+</head>
+<body>
+<div hx-target="this" hx-swap="outerHTML">
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" hx-post=".">Submit</button>
+    </form>
+
+</div>
+</body>
+</html>
