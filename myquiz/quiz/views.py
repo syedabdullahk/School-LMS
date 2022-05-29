@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .forms import *
 from django.contrib.auth.decorators import user_passes_test
@@ -11,7 +12,7 @@ def home(request):
 
     return render(request, 'index.html')
 
-@user_passes_test(lambda user: user.user_type == 2)
+
 class CreateQuizView(LoginRequiredMixin, generic.CreateView):
 
     model  = QuizModel
@@ -34,9 +35,27 @@ class CreateQuizView(LoginRequiredMixin, generic.CreateView):
         return context
 
 
+def test_add_quiz(request):
+    form = addQuestionform()
 
+    if request.method == 'POST':
+        form = addQuestionform(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("success")
+        else:
+            return render(request, "quiz/partials/quiz_form.html", context={
+                "form": form
+            })
+    context = {'form': form}
+    return render(request, 'quiz/create_questions.html', context)
 
-
+def create_quiz_form(request):
+    form = addQuestionform()
+    context = {
+        "form": form
+    }
+    return render(request, "quiz/partials/quiz_form.html", context)
 
 
 
@@ -45,9 +64,7 @@ class CreateQuizView(LoginRequiredMixin, generic.CreateView):
 def createQuestions(request,pk):
 
     quiz = QuizModel.objects.get(Quiz_ID=pk)
-
     form = addQuestionform()
-
 
     if request.method == 'POST':
         form = addQuestionform(request.POST)

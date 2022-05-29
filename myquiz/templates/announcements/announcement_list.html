@@ -41,7 +41,9 @@
                 <td><a href="detail/{{announcement.id}}"> {{announcement.subject}}</a></td>
                 <td>{{announcement.author.username}}</td>
                 <td>{{announcement.start_date}}</td>
+                {% if user.user_type == 2%}
                 <td><button><a href="delete/{{announcement.id}}">Delete</a></button></td>
+                {% endif%}
             </tr>
             {% endfor%}
 
