@@ -27,5 +27,24 @@ urlpatterns = [
 	path('htmx/create-quiz-form', views.create_quiz_form, name='create-quiz-form'),
 	path("testadd", views.test_add_quiz, name="testadd"),
 
+     # _____________ Answer URLs__________________#
+    url(r'^api/answer$', views.AnswerModel_list),
+    url(r'^api/answer/(?P<pk>[0-9]+)$', views.AnswerModel_detail),
+    # url(r'^api/answer/published$', views.AnswerModel_list_active),
+	
+     # _____________ Question URLs__________________#
+    url(r'^api/question$', views.QuesModel_list),
+    url(r'^api/question/(?P<pk>[0-9]+)$', views.QuesModel_detail),
+    # url(r'^api/answer/published$', views.AnswerModel_list_active),
+	
+     # _____________ Quiz URLs__________________#
+    url(r'^api/quiz$', views.QuizModel_list),
+    url(r'^api/quiz/(?P<pk>[0-9]+)$', views.QuizModel_detail),
+    # url(r'^api/answer/published$', views.AnswerModel_list_active),
+	
+     # _____________ Result URLs__________________#
+    url(r'^api/result$', views.ResultModel_list),
+    url(r'^api/result/(?P<pk>[0-9]+)$', views.ResultModel_detail),
+    # url(r'^api/answer/published$', views.AnswerModel_list_active),
 
 ]

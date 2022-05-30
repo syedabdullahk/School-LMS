@@ -12,6 +12,11 @@ urlpatterns = [
 	path("detail/<int:pk>", views.AnnouncementDetail.as_view(), name='announcement-detail'),
 	path("delete/<int:pk>", views.DeleteAnnouncement.as_view(), name='delete'),
 
+	 
+ # _____________ Courses URLs__________________#
+    url(r'^api/announcement$', views.Announcement_list),
+    url(r'^api/announcement/(?P<pk>[0-9]+)$', views.Announcement_detail),
+    url(r'^api/announcement/published$', views.Announcement_list_active),
 
 
 
