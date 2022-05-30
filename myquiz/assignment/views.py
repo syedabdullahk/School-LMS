@@ -18,6 +18,19 @@ from .forms import *
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 
+#importing serializer requirements
+from urllib import request
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_list_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from assignment .models import Assignment
+from assignment .models import SubmitAssignment
+from assignment .serializers import AssignmentSerializer
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+from assignment .serializers import SubmitAssignmentSerializer
 
 # Create your views here.
 
@@ -110,3 +123,128 @@ class AssignmentSubmitDetail(LoginRequiredMixin, generic.DetailView,generic.Form
 
     model = SubmitAssignment
 
+
+
+@api_view(['GET', 'POST', 'DELETE'])
+def assignment_list(request):
+    if request.method == 'GET':
+        tutorials = Assignment.objects.all()
+        
+        title = request.query_params.get('assignment_name', None)
+        if title is not None:
+            tutorials = tutorials.filter(title__icontains=title)
+        
+        tutorials_serializer = AssignmentSerializer(tutorials, many=True)
+        return JsonResponse(tutorials_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
+ 
+    elif request.method == 'POST':
+        tutorial_data = JSONParser().parse(request)
+        tutorial_serializer = AssignmentSerializer(data=tutorial_data)
+        if tutorial_serializer.is_valid():
+            tutorial_serializer.save()
+            return JsonResponse(tutorial_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        count = Assignment.objects.all().delete()
+        return JsonResponse({'message': '{} Assignments were deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+ 
+ 
+@api_view(['GET', 'PUT', 'DELETE'])
+def assignment_detail(request, pk):
+    try: 
+        tutorial = Assignment.objects.get(pk=pk) 
+    except Assignment.DoesNotExist: 
+        return JsonResponse({'message': 'The Assignment does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+ 
+    if request.method == 'GET': 
+        tutorial_serializer = AssignmentSerializer(tutorial) 
+        return JsonResponse(tutorial_serializer.data) 
+ 
+    elif request.method == 'PUT': 
+        tutorial_data = JSONParser().parse(request) 
+        tutorial_serializer = AssignmentSerializer(tutorial, data=tutorial_data) 
+        if tutorial_serializer.is_valid(): 
+            tutorial_serializer.save() 
+            return JsonResponse(tutorial_serializer.data) 
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+ 
+    elif request.method == 'DELETE': 
+        tutorial.delete() 
+        return JsonResponse({'message': 'Assignment was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+    
+        
+@api_view(['GET'])
+def assignment_list_active(request):
+    tutorials = Assignment.objects.filter(published=True)
+        
+    if request.method == 'GET': 
+        tutorials_serializer = AssignmentSerializer(tutorials, many=True)
+        return JsonResponse(tutorials_serializer.data, safe=False)
+    
+    #__________________________________________________________#Assingent part ended here
+    
+#________________ Submit Assignment ____________________#
+
+@api_view(['GET', 'POST', 'DELETE'])
+def submitAssignment_list(request):
+    if request.method == 'GET':
+        tutorials = SubmitAssignment.objects.all()
+        
+        title = request.query_params.get('author', None)
+        if title is not None:
+            tutorials = tutorials.filter(title__icontains=title)
+        
+        tutorials_serializer = SubmitAssignmentSerializer(tutorials, many=True)
+        return JsonResponse(tutorials_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
+ 
+    elif request.method == 'POST':
+        tutorial_data = JSONParser().parse(request)
+        tutorial_serializer = SubmitAssignmentSerializer(data=tutorial_data)
+        if tutorial_serializer.is_valid():
+            tutorial_serializer.save()
+            return JsonResponse(tutorial_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        count = Assignment.objects.all().delete()
+        return JsonResponse({'message': '{} Submitted Assignment were deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+ 
+ 
+@api_view(['GET', 'PUT', 'DELETE'])
+def submitAssignment_detail(request, pk):
+    try: 
+        tutorial = SubmitAssignment.objects.get(pk=pk) 
+    except SubmitAssignment.DoesNotExist: 
+        return JsonResponse({'message': 'The Submitted Assignment does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+ 
+    if request.method == 'GET': 
+        tutorial_serializer = AssignmentSerializer(tutorial) 
+        return JsonResponse(tutorial_serializer.data) 
+ 
+    elif request.method == 'PUT': 
+        tutorial_data = JSONParser().parse(request) 
+        tutorial_serializer = SubmitAssignmentSerializer(tutorial, data=tutorial_data) 
+        if tutorial_serializer.is_valid(): 
+            tutorial_serializer.save() 
+            return JsonResponse(tutorial_serializer.data) 
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+ 
+    elif request.method == 'DELETE': 
+        tutorial.delete() 
+        return JsonResponse({'message': 'Assignment was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+    
+        
+@api_view(['GET'])
+def submitAssignment_list_active(request):
+    tutorials = SubmitAssignment.objects.filter(published=True)
+        
+    if request.method == 'GET': 
+        tutorials_serializer = SubmitAssignmentSerializer(tutorials, many=True)
+        return JsonResponse(tutorials_serializer.data, safe=False)
+    
+    #__________________________________________________________#Enrollment part ended here
+
+    

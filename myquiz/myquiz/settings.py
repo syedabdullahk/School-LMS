@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     #Third Party Apps
     'crispy_forms',
     #MY APPS
-    
+    #serializers_
+    'rest_framework',
+    'corsheaders',
+    #serializers_
     'courses',
     'users',
     'quiz',
@@ -49,6 +52,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+        # CORS
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    #_____________________________
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,7 +97,10 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8081',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -116,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'PST'
 
 USE_I18N = True
 
