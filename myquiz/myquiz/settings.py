@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     #Third Party Apps
     'crispy_forms',
     #MY APPS
-    
+    #serializers_
+    'rest_framework',
+    'corsheaders',
+    #serializers_
     'courses',
     'users',
     'quiz',
@@ -49,6 +52,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+        # CORS
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    #_____________________________
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,7 +98,10 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8081',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -116,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'PST'
 
 USE_I18N = True
 
@@ -127,11 +138,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR +  "/static/",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR +  "/static/",
+# ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
+
+STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 AUTH_USER_MODEL = "users.User"
 
