@@ -108,9 +108,9 @@ def results(request):
 
 
 
-def generateresult(id):
+def generateresult(id,student_id):
 
-    answers = AnswerModel.objects.filter(Question_ID__Quiz_ID=id)
+    answers = AnswerModel.objects.filter(Question_ID__Quiz_ID=id ,student = student_id)
     quiz_id = QuizModel.objects.get(Quiz_ID=id)
     correct = 0
     incorrect = 0
@@ -122,12 +122,12 @@ def generateresult(id):
             incorrect += 1
 
 
-    res = ResultModel(Quiz_ID=quiz_id, Marks=correct)
+    res = ResultModel(Quiz_ID=quiz_id, Marks=correct, student = student_id)
     res.save()
 
 def attemptquiz(request, id):
     questions = QuesModel.objects.filter(Quiz_ID=id)
-    # dict = request.POST.dict()
+    student_id = request.user
     if request.method == 'POST':
         dict = request.POST.dict()
         dict.pop('csrfmiddlewaretoken')
@@ -136,26 +136,25 @@ def attemptquiz(request, id):
         for k, v in dict.items():
             q_id = QuesModel.objects.get(id=k)
             is_correct = q_id.answer == v
-            print(is_correct)
-
-            ans = AnswerModel(Question_ID=q_id, Answer=v, isCorrect=is_correct)
+            ans = AnswerModel(Question_ID=q_id, Answer=v, isCorrect=is_correct, student = student_id)
             ans.save()
 
         answers = AnswerModel.objects.all()
 
-        generateresult(id)
 
-        return render(request, 'answers.html', {'answers': answers})
+
+        generateresult(id,student_id)
+
+        return redirect('/')
 
     return render(request, 'quiz.html', {'questions': questions})
 
 
 def result(request, id):
     quiz_id = QuizModel.objects.get(Quiz_ID=id)
-    results = ResultModel.objects.filter(Quiz_ID=quiz_id)
+    results = ResultModel.objects.filter(Quiz_ID=quiz_id, student = request.user )
 
     if results.exists():
-        print('yes', results)
 
         return render(request, 'result.html', {'results': results})
 

@@ -27,6 +27,12 @@ class CreateAssignment2(LoginRequiredMixin, generic.CreateView):
     form_class = CreateAssignmentForm
     template_name = 'assignment/createAssignment.html'
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        course = Course.objects.get(pk=self.request.session.get('course'))
+        obj.course = course
+        return super().form_valid(form)
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -110,3 +116,6 @@ class AssignmentSubmitDetail(LoginRequiredMixin, generic.DetailView,generic.Form
 
     model = SubmitAssignment
 
+class DeleteAnnouncement(LoginRequiredMixin, generic.DeleteView):
+    model = Assignment
+    success_url = reverse_lazy('announcements:announcement-list')

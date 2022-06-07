@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from users.models import User
 from courses.models import Course
+from .widgets import DatePickerInput, TimePickerInput, DateTimePickerInput
 
 from django.urls import reverse
 
@@ -12,6 +13,8 @@ class Assignment(models.Model):
     start_date = models.DateTimeField(default=timezone.now)
     due_date = models.DateTimeField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+
+
     # add a course id
 
     def __str__(self):
@@ -31,3 +34,4 @@ class SubmitAssignment(models.Model):
 
     def get_absolute_url(self):
         return reverse('quiz:home')
+

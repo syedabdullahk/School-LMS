@@ -2,6 +2,7 @@
 
 
 {% block content %}
+{% load crispy_forms_tags %}
 
 <style>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
@@ -159,33 +160,10 @@ html, body {
             <div class="form-content">
                 <div class="form-items">
                     <h3>Create a new Assignment</h3>
-                    <p>Enter Questions in the next step</p>
+
                     <form action="{% url 'assignment:create' %}" method="POST" class="requires-validation" novalidate>
                         {% csrf_token %}
-                        {{ form.non_field_errors }}
-
-                        <div class="col-md-12">
-                            {{ form.course.errors }}
-                            <label for="{{form.course }}">Course</label>
-                            {{ form.course}}
-                        </div>
-
-                        <div class="col-md-12">
-                            {{ form.assignment_name.errors }}
-                            <label for="{{ form.assignment_name.id_for_label }}">Assignment Title</label>
-                            {{ form.assignment_name }}
-                        </div>
-
-                        <div class="col-md-12">
-                            {{ form.assignment_description.errors }}
-                            <label for="{{ form.assignment_description.id_for_label }}">Description</label>
-                            {{ form.assignment_description }}
-                        </div>
-                        <div class="col-md-12">
-                            {{ form.due_date.errors }}
-                            <label for="{{form.due_date }}">DueDate</label>
-                            {{ form.due_date }}
-                        </div>
+                       {{ form|crispy }}
 
                         <div class="form-button mt-3">
                             <button id="submit" type="submit" class="btn btn-primary">NEXT</button>

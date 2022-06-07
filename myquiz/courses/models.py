@@ -23,7 +23,8 @@ class Enrollment(models.Model):
     student = models.ForeignKey(User, related_name="user_courses", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.student.username
+        str = self.student.username +" | "+ self.course.course_name
+        return str
 
     class Meta:
         unique_together = ('course', 'student')

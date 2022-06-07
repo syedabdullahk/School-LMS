@@ -18,7 +18,6 @@
 </style>
 
 <body>
-<a href="/" class = "button">Go Back</a>
 <div class="main">
     <h2>Announcements</h2>
 
@@ -39,7 +38,7 @@
             <tr>
                 <th scope="row"></th>
                 <td><a href="{% url 'announcements:announcement-detail' announcement.id %}"> {{announcement.subject}}</a></td>
-                <td>{{announcement.author.username}}</td>
+                <td>{{announcement.author.username|capfirst}}</td>
                 <td>{{announcement.date}}</td>
                 {% if user.user_type == 2%}
                 <td><button><a href="delete/{{announcement.id}}">Delete</a></button></td>
@@ -48,18 +47,16 @@
             {% endfor%}
 
 
+
             </tbody>
         </table>
     </div>
-    {%if user.user_type == 2 %}
+    {%if user.user_type == 1 %}
     <div class="add-button">
         <button><a href="{% url 'announcements:create'%}">Create Announcement</a></button>
     </div>
     {% endif%}
     {%else%}
-    <div class="add-button">
-        <button><a href="{% url 'announcements:create'%}">Create Announcement</a></button>
-    </div>
 
 
     {%endif%}

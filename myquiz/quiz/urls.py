@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from django.urls import path, include
-
 import quiz.views as quiz_views
 from . import views
 app_name = "quiz"
@@ -8,6 +7,7 @@ urlpatterns = [
 
 
 	path("", views.home, name="home"),
+
 	#path("questions/", views.qpage, name="questions"),
 
 
@@ -24,8 +24,9 @@ urlpatterns = [
 	path("attempt-quiz/<int:id>", views.attemptquiz, name="attempt-quiz"),
 	path("results/<int:id>", views.result, name="quiz-result"),
 
+	#testing multiple forms in one page########################
 	path('htmx/create-quiz-form', views.create_quiz_form, name='create-quiz-form'),
 	path("testadd", views.test_add_quiz, name="testadd"),
-
+	############################################################
 
 ]

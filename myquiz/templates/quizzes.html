@@ -1,24 +1,58 @@
+<!doctype html>
+<link rel="stylesheet" href="../static/courses/course_list.css">
 {% extends "base.html" %}
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../static/courses/course_list.css">
+
+    <title>Courses</title>
+
+</head>
+<body>
 
 {% block content %}
-
-
 <div class="container">
-  <div class="row row-cols-3">
-      {% for q in object_list %}
-    <div class="col"><h1> <a href="{% url  'quiz:attempt-quiz' q.Quiz_ID  %}" >{{q.Quiz_name}}</a></h1>
+    <div>
+        <h1 id="heading" style="font-size: 50px">Quizzes</h1>
+        {% if user.user_type == 2%}
+        <div>
+            <button><a href="/add-quiz">Create Quiz</a></button>
+        </div>
+        {%endif%}
     </div>
-      {% endfor %}
 
 
+    <div class="container">
+        <div class="container">
+            <div class="row">
 
-  </div>
+
+                {% for q in object_list %}
+                <div class="col-sm-4">
+
+                    <div class="box box-down blue">
+                        <h2>
+                            <a href="{% url 'quiz:attempt-quiz' q.Quiz_ID %}">{{q.Quiz_name}}</a>
+                        </h2>
+                        <h3 style="padding-top: 10px"><a href="{% url 'quiz:quiz-result' q.Quiz_ID %}">Result</a></h3>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
-{% if user.user_type == 2%}
-<div>
-  <button><a href="/add-quiz">Create Quiz</a></button>
-</div>
-{%endif%}
 
-{% endblock %}
+
+{% endblock content %}
+</div>
+</body>
+</html>

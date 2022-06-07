@@ -29,7 +29,7 @@ class AllAnnouncements(generic.ListView):
 
     # All Announcements that concern the logged in student
     model = Announcement
-    template_name = 'announcements/all_announcements.html'
+    template_name = 'index.html'
 
 
     def get_context_data(self):
