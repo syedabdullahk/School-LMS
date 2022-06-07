@@ -15,7 +15,12 @@
       <th scope="col">#</th>
       <th scope="col">Assignment Title</th>
       <th scope="col">Start Date</th>
-      <th scope="col">Due Date</th>
+      <th scope="col">Due Date
+      {%if user.user_type == 2%}
+      <th scope="col">
+      <button><a href="{%url 'assignment:create' %}">Add</a></button></th>
+      {%endif%}
+
     </tr>
   </thead>
   <tbody>

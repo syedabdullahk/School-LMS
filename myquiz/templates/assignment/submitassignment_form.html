@@ -2,7 +2,7 @@
 
 {% block title_name %}
 {% endblock title_name %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
     {% if user.user_type == 2 %}
@@ -18,11 +18,11 @@
             <h4>Submit Assignment</h4>
             <form action="{% url 'assignment:submit' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{  form }}
+                {{  form|crispy }}
                 {{ form.name.errors }}
 
                 {% if duedate >= time %}
-                    <input type="submit" value="Submit" class="btn btn-warning btn-lg">
+                    <input style="margin-top: 10px" type="submit" value="Submit" class="btn btn-success">
                 {% endif %}
             </form>
             <ul>

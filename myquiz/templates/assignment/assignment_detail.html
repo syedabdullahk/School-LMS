@@ -33,109 +33,105 @@ LMS - {{assignment.assignment_name}}
     </head>
 </head>
 <body>
-<div class="portletBody">
+<div class="container">
+    <div class="portletBody">
 
 
-    <h3>Assignment
-        <span class="highlight">
+        <h3>Assignment
+            <span class="highlight">
 						 	- In progress
 							</span>
-    </h3>
+        </h3>
 
-    <div class="itemSummary">
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryHeader">Title</div>
-            </div>
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryValue">
-                    {{assignment.assignment_name}}
+        <div class="itemSummary">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryHeader">Title</div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryValue">
+                        {{assignment.assignment_name}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryHeader">Due</div>
-            </div>
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryValue">
-                    {{assignment.due_date}}
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryHeader">Due</div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryValue">
+                        {{assignment.due_date}}
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryHeader">Status</div>
-            </div>
-            <div class="col-lg-4 col-sm-6 col-xs-12">
-                <div class="itemSummaryValue">
-                    Not Started
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryHeader">Status</div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="itemSummaryValue">
+                        Not Started
+                    </div>
                 </div>
             </div>
+
         </div>
+        <div class="clearfix"></div>
+        <h4>
+            Instructions
+        </h4>
+
+        <div class="textPanel"><p>{{assignment.assignment_description}}</p></div>
+
+        <h4>Additional resources for assignment</h4>
+
+
+        <hr class="itemSeparator">
+
 
     </div>
-    <div class="clearfix"></div>
-    <h4>
-        Instructions
-    </h4>
-
-    <div class="textPanel"><p>{{assignment.assignment_description}}</p></div>
-
-    <h4>Additional resources for assignment</h4>
-
-
-    <hr class="itemSeparator">
-
-
 
 </div>
+    {% if user.user_type == 2 %}
 
 
+    {% else %}
 
 
+    {% if duedate >= time %}
 
 
-{% if user.user_type == 2 %}
-
-
-
-
-
-{% else %}
-
-
-{% if duedate >= time %}
-
-
-{% endif %}
-<div class="submissions">
-    <h3>My Submissions:</h3>
-
-    {% for submissions in submitted %}
-    {% if submissions.author.id == user.id %}
-    <a href="{% url 'assignment:submit_detail' pk=submissions.pk %}" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{submissions.topic}}</h5>
-            <small>{{submissions.author}}</small>
-        </div>
-        <p class="mb-1">
-            {{submissions.description}}
-        </p>
-        <small>Start Date: {{submissions.submitted_date}}</small><br>
-    </a>
     {% endif %}
-    {% empty %}
-    <h6>No Submissions</h6>
-    {% endfor %}
-    {% include "assignment/submitassignment_form.html" %}
-</div>
+    <div class="container">
+        <div class="submissions">
 
 
-{% endif %}
-</div>
-{% endblock content %}
+            {% for submissions in submitted %}
+            {% if submissions.author.id == user.id %}
+            <a href="{% url 'assignment:submit_detail' pk=submissions.pk %}"
+               class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{submissions.topic}}</h5>
+                    <small>{{submissions.author}}</small>
+                </div>
+                <p class="mb-1">
+                    {{submissions.description}}
+                </p>
+                <small>Start Date: {{submissions.submitted_date}}</small><br>
+            </a>
+            {% endif %}
+            {% empty %}
+            <h6>No Submissions</h6>
+            {% endfor %}
+            {% include "assignment/submitassignment_form.html" %}
+        </div>
+
+
+        {% endif %}
+    </div>
+
+    {% endblock content %}
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.db import models
 from courses.models import Course
 from django.urls import reverse
+from users.models import User
 
 
 class QuizModel(models.Model):
@@ -30,12 +31,12 @@ class QuesModel(models.Model):
 
 class AnswerModel(models.Model):
     Answer_ID = models.AutoField(primary_key=True)
-    # Student_ID = models.IntegerField()
+    student = models.ForeignKey(User, related_name="answer", on_delete=models.CASCADE)
     Answer = models.CharField(max_length=200, null=True)
     Question_ID = models.ForeignKey(QuesModel, on_delete=models.CASCADE)
     isCorrect = models.BooleanField(default = True)
 
 class ResultModel(models.Model):
-    #Student_ID
+    student = models.ForeignKey(User, related_name="result", on_delete=models.CASCADE)
     Quiz_ID = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
     Marks = models.IntegerField()
