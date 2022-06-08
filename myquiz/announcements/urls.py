@@ -11,6 +11,8 @@ urlpatterns = [
 	path("", views.AllAnnouncements.as_view(), name='all-announcements'),
 	path("detail/<int:pk>", views.AnnouncementDetail.as_view(), name='announcement-detail'),
 	path("delete/<int:pk>", views.DeleteAnnouncement.as_view(), name='delete'),
+	path("about.html", views.about, name="about"),
+	path("indexdocs.html", views.indexdocs, name="indexdocs"),
 
 	 
  # _____________ Courses URLs__________________#
