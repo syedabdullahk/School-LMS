@@ -22,13 +22,16 @@ from quiz .serializers import QuesModelSerializer
 from quiz .serializers import QuizModelSerializer
 from quiz .serializers import ResultModelSerializer
 from quiz .serializers import AnswerModelSerializer
+from courses .models import Course
 
 
 
 # Create your views here.
 def home(request):
+    courses = Course.objects.all()
+    context = {'courses': courses}
 
-    return render(request, 'index.html')
+    return render(request, 'index.html',context)
 
 
 class CreateQuizView(LoginRequiredMixin, generic.CreateView):
@@ -52,15 +55,19 @@ class CreateQuizView(LoginRequiredMixin, generic.CreateView):
         context = super(CreateQuizView, self).get_context_data(**kwargs)
         return context
 
-
-def test_add_quiz(request):
+@user_passes_test(lambda user: user.user_type == 2)
+def test_add_quiz(request,pk):
     form = addQuestionform()
+    request.session['quiz'] = pk
+
 
     if request.method == 'POST':
         form = addQuestionform(request.POST)
         if form.is_valid():
+            form = form.save(commit=False)
+            form.Quiz_ID_id = request.session['quiz']
             form.save()
-            return HttpResponse("success")
+            return HttpResponse('success')
         else:
             return render(request, "quiz/partials/quiz_form.html", context={
                 "form": form
@@ -68,10 +75,13 @@ def test_add_quiz(request):
     context = {'form': form}
     return render(request, 'quiz/create_questions.html', context)
 
+@user_passes_test(lambda user: user.user_type == 2)
 def create_quiz_form(request):
     form = addQuestionform()
+    quiz = QuizModel.objects.get(Quiz_ID=request.session['quiz'])
     context = {
-        "form": form
+        "form": form,
+        "quiz":quiz
     }
     return render(request, "quiz/partials/quiz_form.html", context)
 
@@ -90,7 +100,7 @@ def createQuestions(request,pk):
             form = form.save(commit=False)
             form.Quiz_ID_id =pk
             form.save()
-            return redirect('/')
+            return HttpResponse("success")
     context = {'form': form}
     return render(request, 'addquestion.html', context)
 

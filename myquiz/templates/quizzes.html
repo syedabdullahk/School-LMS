@@ -36,7 +36,7 @@
 
                     <div class="box box-down blue">
                         <h2>
-                            <a href="{% url 'quiz:attempt-quiz' q.Quiz_ID %}">{{q.Quiz_name}}</a>
+                            <a  class ="box-name" href="{% url 'quiz:attempt-quiz' q.Quiz_ID %}">{{q.Quiz_name}}</a>
                         </h2>
                         <h3 style="padding-top: 10px"><a href="{% url 'quiz:quiz-result' q.Quiz_ID %}">Result</a></h3>
 

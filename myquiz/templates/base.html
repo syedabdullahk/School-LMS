@@ -29,12 +29,27 @@
 {% load crispy_forms_tags %}
 <body>
 
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 
-<nav style = "background-color: lightgray" class="navbar" role="navigation" aria-label="main navigation">
+    background-color: lightgray;
+    padding: 1rem 1rem 3rem;
+
+
+}
+</style>
+
+
+<nav style="background-color: lightgray" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a style = "color: black" class="navbar-item" href="/">
+        <a style="color: black" class="navbar-item" href="/">
             The Aura School
         </a>
+
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -44,54 +59,94 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-
-
-        <div class="navbar-end">
-            {% if not user.is_authenticated and not "/accounts/login" in request.get_full_path %}
-            <form class="form-inline" method="post" action="{% url 'users:login'%}">
-                {%csrf_token%}
-                <div class="form-group">
-                    Username: <input class="" type="text" name="username" placeholder="Username"/>
-                </div>
-                <div class="form-group">
-                    Password: <input class="" type="password" name="password" placeholder="Password"/>
-                </div>
-
-
-                <button type="submit" class="btn btn-light">Log in</button>
-
-
-            </form>
-
-
-            {%else%}
-
+        <div class="navbar-start">
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link"> {{user.username}} </a>
-                <div class="navbar-dropdown">
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" aria-current="page" href="/accounts/logout/">Logout</a>
+                <a class="navbar-link" href="{% url  'courses:course-list' %}">
+                    Courses
+                </a>
+
+                <div class="navbar-dropdown is-boxed">
+                    {% for course_item in courses %}
+                        {% if user.user_type == 2 %}
+                            {% if user == course_item.teacher %}
+
+                                <a class="navbar-item"
+                                   href="{% url 'courses:course-select' course_item.id %}">{{ course_item.course_name }}
+                                </a>
+
+                            {% endif %}
+                        {% endif %}
+                        {% if user in course_item.students.all%}
+                        <a class="navbar-item"
+                                   href="{% url 'courses:course-select' course_item.id %}">{{ course_item.course_name }}
+                                </a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
 
-        {%endif%}
+        <div class="navbar-end">
+            {% if not user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+                <form class="form-inline" method="post" action="{% url 'users:login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        Username: <input class="" type="text" name="username" placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        Password: <input class="" type="password" name="password" placeholder="Password"/>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-light">Log in</button>
+
+
+                </form>
+
+
+            {% else %}
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link"> {{ user.username }} </a>
+                    <div class="navbar-dropdown">
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" aria-current="page" href="/accounts/logout/">Logout</a>
+                        {% if user.username == 'admin' %}
+                            <a class="navbar-item" aria-current="page" href="/admin">Admin</a>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+
+
+            {% endif %}
 
     </div>
     </div>
+
 </nav>
 
 
 
-{%block nav-bar%}
+
+{% block nav-bar %}
 {% endblock %}
+
 
 
 {% block content %}
 {% endblock %}
 
-
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p style="color: black">
+      <strong>LMS</strong> by <a href="https://jgthms.com">Abdullah Shah</a>. The source code is licensed
+      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+    </p>
+  </div>
+</footer>
 <script>
     document.body.addEventListener('htmx:configRequest', (event) => {
         event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';

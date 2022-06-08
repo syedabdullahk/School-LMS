@@ -1,8 +1,3 @@
-
-
-
-
-
 <!doctype html>
 <link rel="stylesheet" href="../static/courses/course_list.css">
 {% extends "base.html" %}
@@ -20,57 +15,53 @@
 <body>
 
 {% block content %}
-<div class="container">
-    <div>
-        <h1 id="heading" style="font-size: 50px">All Courses</h1>
-    </div>
-
 
     <div class="container">
+
+        <div style="padding: 10px">
+            <h1 id="heading" style="font-size: 50px">{{ course.course_name }}</h1>
+        </div>
+
         <div class="container">
-            <div class="row">
+            <div class="container">
+                <div class="row">
 
 
+                    <div class="col-sm-4">
 
+                        <div class="box box-down blue">
+                            <h2>
+                                <a class="box-name" href="{% url  'quiz:quizzes' course.id %}">Quizzes</a>
+                            </h2>
 
-                <div class="col-sm-4">
-
-                    <div class="box box-down blue">
-                        <h2>
-                            <a href="{% url  'quiz:quizzes' course.id %}">Quizzes</a>
-                        </h2>
-                        <p>{{course_item.teacher}}</p>
-                        <p>{{course_item.course_description}}</p>
+                        </div>
                     </div>
-                </div>
-                 <div class="col-sm-4">
+                    <div class="col-sm-4">
 
-                    <div class="box box-down blue">
-                        <h2>
-                            <a href="{% url  'assignment:assgn-list' course.id %}">Assignments</a>
-                        </h2>
-                        <p>{{course_item.teacher}}</p>
-                        <p>{{course_item.course_description}}</p>
+                        <div class="box box-down blue">
+                            <h2>
+                                <a class="box-name" href="{% url  'assignment:assgn-list' course.id %}">Assignments</a>
+                            </h2>
+
+                        </div>
                     </div>
-                </div>
-                 <div class="col-sm-4">
+                    <div class="col-sm-4">
 
-                    <div class="box box-down blue">
-                        <h2>
-                            <a href="{% url  'announcements:announcement-list' %}">Announcements</a>
-                        </h2>
-                        <p>{{course_item.teacher}}</p>
-                        <p>{{course_item.course_description}}</p>
+                        <div class="box box-down blue">
+                            <h2>
+                                <a class="box-name"
+                                   href="{% url  'announcements:announcement-list' %}">Announcements</a>
+                            </h2>
+
+                        </div>
                     </div>
+
+
                 </div>
-
-
-
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 {% endblock content %}
 </div>
