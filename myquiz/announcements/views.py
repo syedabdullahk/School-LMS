@@ -18,6 +18,10 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
 
+def about(request):
+    return render(request, 'about.html', {})
+def indexdocs(request):
+    return render(request, 'indexdocs.html', {})
 class CreateAnnouncementView(LoginRequiredMixin, generic.CreateView):
     form_class = CreateAnnouncementForm
     template_name = 'announcements/createannouncement_form.html'
