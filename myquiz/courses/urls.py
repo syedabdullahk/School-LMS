@@ -9,6 +9,7 @@ urlpatterns = [
 
 	path("course-list", views.CourseListView.as_view(), name='course-list'),
 	path("detail/<int:pk>", views.CourseDetail.as_view(), name='course-detail'),
+    path("select/<int:pk>", views.select_course, name='course-select'),
  
      # _____________ Courses URLs__________________#
     url(r'^api/courses$', views.course_list),

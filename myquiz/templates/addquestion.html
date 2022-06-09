@@ -1,4 +1,7 @@
+{% extends "base.html" %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,69 +9,31 @@
 
 </head>
 <body>
-<a href="/" class = "button">Go Back</a>
+{% block content %}
+    {% load crispy_forms_tags %}
 
-<div class="form-body">
-    <div class="row">
-        <div class="form-holder">
-            <div class="form-content">
-                <div class="form-items">
-                    <h3>Quiz Creation</h3>
-
-                    <form action="" method="POST" class="requires-validation" novalidate>
-                        {% csrf_token %}
-                        {{ form.non_field_errors }}
-                        <!--
-                           <div class="col-md-10">
-                            {{ form.Quiz_ID.errors }}
-                            <label for="{{ form.Quiz_ID.id_for_label }}">Quiz Name</label>
-                            {{ form.Quiz_ID }}
-                        </div>  !-->
-                        <div class="col-md-10">
-
-                            {{ form.question.errors }}
-                            <label for="{{ form.question.id_for_label }}">Question</label>
-                            {{ form.question }}
-                        </div>
+    <a href="/" class="button">Go Back</a>
 
 
-                          <div class="col-md-12">
-                            {{ form.option1.errors }}
-                            <label for="{{ form.option1.id_for_label }}">Option1</label>
-                            {{ form.option1 }}
-                        </div>
-                          <div class="col-md-12">
-                            {{ form.option2.errors }}
-                            <label for="{{ form.option2.id_for_label }}">Option2</label>
-                            {{ form.option2 }}
-                        </div>
-                          <div class="col-md-12">
-                            {{ form.option3.errors }}
-                            <label for="{{ form.option3.id_for_label }}">Option3</label>
-                            {{ form.option3 }}
-                        </div>
-                          <div class="col-md-12">
-                            {{ form.option4.errors }}
-                            <label for="{{ form.option4.id_for_label }}">Option4</label>
-                            {{ form.option4 }}
-                        </div>
-                          <div class="col-md-12">
-                            {{ form.answer.errors }}
-                            <label for="{{ form.answer.id_for_label }}">Answer</label>
-                            {{ form.answer }}
-                        </div>
+    <div class="container">
+        <div >
+            <h2>Add Questions</h2>
 
-                        <div class="form-button mt-3">
-                            <button id="submit" type="submit" class="btn btn-primary">NEXT</button>
-                        </div>
-                    </form>
+            <form action="" method="POST" class="requires-validation" novalidate>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form|crispy }}
+
+                <div class="form-button mt-3">
+                    <button id="submit" type="submit" class="btn btn-primary">NEXT</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
-</div>
 
 
+{% endblock %}
 
 
 </body>

@@ -64,6 +64,10 @@ h1:last-of-type {
     padding: 30px;
     margin: 20px;
 }
+.box-name {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 
 img {
     float: right;

@@ -14,7 +14,7 @@ urlpatterns = [
 	path("add-quiz", views.CreateQuizView.as_view(), name="create-quiz"),
 
 
-	path("create-question/<int:pk>", views.createQuestions, name="create-question"),
+	#path("create-question/<int:pk>", views.createQuestions, name="create-question"),
 	#path("quizzes", views.quizzes, name="quizzes"),
 	#temporary
 	path("quizzes/<int:pk>", views.QuizListView.as_view(), name="quizzes"),
@@ -25,7 +25,7 @@ urlpatterns = [
 	path("results/<int:id>", views.result, name="quiz-result"),
 
 	path('htmx/create-quiz-form', views.create_quiz_form, name='create-quiz-form'),
-	path("testadd", views.test_add_quiz, name="testadd"),
+	path("testadd/<int:pk>", views.test_add_quiz, name="create-question"),
 
      # _____________ Answer URLs__________________#
     url(r'^api/answer$', views.AnswerModel_list),

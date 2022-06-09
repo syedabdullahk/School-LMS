@@ -10,7 +10,7 @@ from assignment.models import Assignment
 #importing serializer requirements
 from urllib import request
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_list_or_404 ,redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -30,8 +30,14 @@ class CourseDetail(generic.DetailView):
         context['assignments'] = assignments
         self.request.session['course'] = self.kwargs['pk']
         return context
+    #saves the id of the selected course to the request.session so it can be used to select relevant assigments/quizzes/announcements
+def select_course(request,pk):
+    request.session['course'] = pk
+    return redirect('/')
+
 
 class CourseListView(generic.ListView):
+
     model = Course
    # courses = Course.objects.filter()
    
