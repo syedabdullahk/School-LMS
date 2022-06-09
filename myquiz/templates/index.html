@@ -37,6 +37,7 @@
                     <a href="{% url  'announcements:all-announcements' %}"><span class="fa fa-user mr-3"></span>
                         Announcements</a>
                 </li>
+
                 {% if request.session.course %}
                     <li class="">
                         <a href="{% url  'assignment:assgn-list' request.session.course %}"><span class="fa fa-sticky-note mr-3"></span> Assignments</a>

@@ -1,6 +1,7 @@
 <!doctype html>
 <link rel="stylesheet" href="../static/courses/course_list.css">
 {% extends "base.html" %}
+{% block content %}
 
 <html lang="en">
 <head>
@@ -12,9 +13,9 @@
     <title>Courses</title>
 
 </head>
-<body>
 
-{% block content %}
+
+
 <div class="container">
     <div>
         <h1 id="heading" style="font-size: 50px">Quizzes</h1>
@@ -51,8 +52,5 @@
 
 </div>
 
-
-{% endblock content %}
-</div>
-</body>
 </html>
+{% endblock content %}
