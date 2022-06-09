@@ -48,11 +48,11 @@
                 {% endif %}
 
                 <li class="">
-                    <a href=""><span class="fa fa-sticky-note mr-3"></span> About</a>
-                </li>
-                <li class="">
-                    <a href=""><span class="fa fa-sticky-note mr-3"></span> Documentation</a>
-                </li>
+                <a href="{%url 'about'%}"><span class="fa fa-border fa-solid fa-info"></span>&nbsp &nbspAbout</a>
+            </li>
+            <li class="">
+                <a href="{%url 'indexdocs'%}"><span class="fa fa-sticky-note mr-3"></span> Documentation</a>
+            </li>
 
             </ul>
 
@@ -129,85 +129,10 @@
 
         </div>
 
-        <ul class="list-unstyled components mb-5">
-            <li class="">
-                <a href="{% url  'courses:course-list' %}"><span class="fa fa-sticky-note mr-3"></span> Courses</a>
-            </li>
-
-
-            <li>
-                <a href="{% url  'announcements:all-announcements' %}"><span class="fa fa-user mr-3"></span>
-                    Announcements</a>
-            </li>
-
-            <li class="">
-                <a href="{%url 'about'%}"><span class="fa fa-border fa-solid fa-info"></span>&nbsp &nbspAbout</a>
-            </li>
-            <li class="">
-                <a href="{%url 'indexdocs'%}"><span class="fa fa-sticky-note mr-3"></span> Documentation</a>
-            </li>
-
-        </ul>
-
-    </nav>
-
-    <!-- Page Content  -->
-    <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">The Aura School LMS</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.</p>
-
-        <div class="main">
-    <h2>Announcements</h2>
-
-    {%if object_list%}
-    <div>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Subject</th>
-                <th scope="col">Teacher</th>
-                <th scope="col">Date</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for announcement in object_list %}
-            <tr>
-                <th scope="row"></th>
-                <td><a href="{% url 'announcements:announcement-detail' announcement.id %}"> {{announcement.subject}}</a></td>
-                <td>{{announcement.author.username}}</td>
-                <td>{{announcement.date}}</td>
-                {% if user.user_type == 2%}
-                <td><button><a href="delete/{{announcement.id}}">Delete</a></button></td>
-                {% endif%}
-            </tr>
-            {% endfor%}
 
 
 
-            </tbody>
-        </table>
-    </div>
-    {%if user.user_type == 2 %}
-    <div class="add-button">
-        <button><a href="{% url 'announcements:create'%}">Create Announcement</a></button>
-    </div>
-    {% endif%}
-    {%else%}
 
-
-
-    {%endif%}
 </div>
 
 
