@@ -31,7 +31,11 @@ class CourseDetail(generic.DetailView):
         self.request.session['course'] = self.kwargs['pk']
         return context
     #saves the id of the selected course to the request.session so it can be used to select relevant assigments/quizzes/announcements
+
+
 def select_course(request,pk):
+    course = Course.objects.get(id=pk)
+    request.session['course_name'] = course.course_name
     request.session['course'] = pk
     return redirect('/')
 
