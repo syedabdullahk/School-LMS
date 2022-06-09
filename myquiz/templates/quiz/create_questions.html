@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <style>
     #quizforms{
         width: 50%;
     }
 </style>
-<h1>Create books for {{ author.name }}</h1>
 
+    <div class = "container">
+    {% for q in quiz %}
+    <h1>Add Question for {{Quiz_name }} </h1>
+    {% endfor %}
+    </div>
 
-
-<div  id="quizforms"></div>
+<div class = "container">
+<div  id="quizforms"> </div>
 <button type="button" hx-get="{% url 'quiz:create-quiz-form' %}" hx-target="#quizforms" hx-swap="beforeend">
     Add form
 </button>
+    </div>
 {% endblock %}

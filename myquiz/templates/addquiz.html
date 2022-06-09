@@ -3,30 +3,22 @@
 
 {% block content %}
 
-
-<div class="form-body">
+{% load crispy_forms_tags %}
+    <style>
+    .title{
+        font-weight: bold;
+    }
+    </style>
+<div class="container">
     <div class="row">
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h3>Quiz Creation</h3>
+                    <h1 class="title">Quiz Creation</h1>
                     <p>Enter Questions in the next step</p>
                     <form action="" method="POST" class="requires-validation" novalidate>
                         {% csrf_token %}
-                        {{ form.non_field_errors }}
-                        <div class="col-md-12">
-                            {{ form.Quiz_name.errors }}
-                            <label for="{{ form.Quiz_name.id_for_label }}">Quiz Title</label>
-                            {{ form.Quiz_name }}
-                        </div>
-
-                        <!--
-                        <div class="col-md-12">
-                            {{ form.course.errors }}
-                            <label for="{{ form.course.id_for_label }}">Course Name</label>
-                            {{ form.course }}
-                        </div>
-                            !-->
+                        {{ form|crispy }}
 
                         <div class="form-button mt-3">
                             <button id="submit" type="submit" class="btn btn-primary">NEXT</button>

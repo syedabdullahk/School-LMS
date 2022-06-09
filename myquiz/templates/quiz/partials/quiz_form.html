@@ -3,15 +3,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>asd</title>
+    <title>Questions</title>
 </head>
 <body>
+
 <div hx-target="this" hx-swap="outerHTML">
 
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" hx-post=".">Submit</button>
+        <button type="submit" hx-post="{{ request.session.quiz }}">Submit</button>
+
     </form>
 
 </div>
