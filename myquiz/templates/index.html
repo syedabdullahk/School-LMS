@@ -1,63 +1,13 @@
 <!doctype html>
-<link rel="stylesheet" href="../static/courses/course_list.css">
+
 {% extends "base.html" %}
 
 
-{% block nav-bar %}
-    <html lang="en">
-    <head>
-        <title>Django-LMS</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../static/css/style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="../static/courses/course_list.css">
-    </head>
-    <body>
-
-    <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar">
-            <div class="custom-menu">
-                <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                    <i class="fa fa-bars"></i>
-                    <span class="sr-only">Toggle Menu</span>
-                </button>
-            </div>
-
-            <ul class="list-unstyled components mb-5">
+{% block content %}
 
 
 
-                <li>
-                    <a href="{% url  'announcements:all-announcements' %}"><span class="fa fa-user mr-3"></span>
-                        Announcements</a>
-                </li>
 
-                {% if request.session.course %}
-                    <li class="">
-                        <a href="{% url  'assignment:assgn-list' request.session.course %}"><span class="fa fa-sticky-note mr-3"></span> Assignments</a>
-                    </li>
-                    <li class="">
-                        <a href="{% url  'quiz:quizzes' request.session.course %}"><span class="fa fa-sticky-note mr-3"></span> Quiz and Tests</a>
-                    </li>
-
-                {% endif %}
-
-                <li class="">
-                <a href="{%url 'about'%}"><span class="fa fa-border fa-solid fa-info"></span>&nbsp &nbspAbout</a>
-            </li>
-            <li class="">
-                <a href="{%url 'indexdocs'%}"><span class="fa fa-sticky-note mr-3"></span> Documentation</a>
-            </li>
-
-            </ul>
-
-        </nav>
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
@@ -133,16 +83,10 @@
 
 
 
-
-</div>
-
-
-
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/popper.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/main.js"></script>
-    </body>
+
 
 {% endblock %}
-</html>
