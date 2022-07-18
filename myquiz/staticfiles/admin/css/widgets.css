@@ -67,7 +67,7 @@
     width: 22px;
     background-color: var(--selected-bg);
     border-radius: 10px;
-    margin: 10em 5px 0 5px;
+    margin: 10em 5px 0;
     padding: 0;
 }
 

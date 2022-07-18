@@ -60,7 +60,7 @@ a single block in the template.
 }
 
 ul.breadcrumb {
-  margin: 70px 0 0 0;
+  margin: 70px 0 0;
 }
 
 .breadcrumb li.active a {
